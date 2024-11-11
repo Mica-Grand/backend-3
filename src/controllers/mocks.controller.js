@@ -11,7 +11,9 @@ export const getMockPets = (req, res) => {
     res.send({ status: 'success', payload: users });  };
   
   export const generateData = async (req, res) => {
-    const { users, pets } = req.body;
+    const users = parseInt(req.query.users) || 50;
+    const pets = parseInt(req.query.pets) || 50;
+    
     try {
       const mockUsers = generateMockUsers(users);
       const mockPets = generateMockPets(pets);
