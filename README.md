@@ -37,7 +37,7 @@ NODE_ENV=test
  /api/mocks/mockingpets -
  Genera y devuelve una lista de 50 mascotas ficticias sin insertarlas en la base de datos.
 
- ![screenshot de Postman. GET mockingpets](image.png)
+ ![screenshot de Postman. GET mockingpets](src/assets/img/image.png)
 
 /api/mocks/mockingusers  -
 Genera y devuelve una lista de 50 usuarios ficticios sin insertarlos en la base de datos.
