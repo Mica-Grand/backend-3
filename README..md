@@ -37,17 +37,23 @@ NODE_ENV=test
  /api/mocks/mockingpets -
  Genera y devuelve una lista de 50 mascotas ficticias sin insertarlas en la base de datos.
 
+ ![screenshot de Postman. GET mockingpets](image.png)
+
 /api/mocks/mockingusers  -
 Genera y devuelve una lista de 50 usuarios ficticios sin insertarlos en la base de datos.
+
+![screenshot de Postman. GET mockingusers](image-1.png)
 
 **POST**
 /api/mocks/generateData  - Genera e inserta datos ficticios en la base de datos.
 Query Parameters:
 users (opcional): Número de usuarios a generar (valor predeterminado: 50).
 pets (opcional): Número de mascotas a generar (valor predeterminado: 50).
-Ejemplo de URL: `/api/mocks/generateData?users=5&pets=5`
+Ejemplo de URL: `/api/mocks/generateData?users=10&pets=10`
 
+![alt text](image-2.png)
 
+![alt text](image-3.png)
 
  
 
