@@ -24,6 +24,8 @@ MONGO_URI=<uri_de_mongodb_para_desarrollo>
 MONGO_URI_TEST=<uri_de_mongodb_para_pruebas>
 NODE_ENV=test
 
+   **<u>LAS VARIABLES FUERON ENVIADAS EN EL MENSAJE DE LA ENTREGA</u>** 
+
 4. Ejecutar el proyecto:
     ```bash
     node src/app.js
