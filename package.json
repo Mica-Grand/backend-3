@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "test": "mocha test/supertest.test.js"
+    "start": "cross-env NODE_ENV=production node src/app.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/app.js",
+    "test": "cross-env NODE_ENV=test mocha test/supertest.test.js"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "chai": "^4.3.7",
+    "cross-env": "^7.0.3",
     "mocha": "^10.1.0",
     "supertest": "^7.0.0"
   }

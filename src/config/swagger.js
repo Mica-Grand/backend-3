@@ -25,6 +25,6 @@ const swaggerOptions = {
   ],
 };
 
-const swaggerConfig = swaggerJsdoc(swaggerOptions);
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
 
-export { swaggerUi, swaggerConfig };
+export { swaggerUi, swaggerDocs };
