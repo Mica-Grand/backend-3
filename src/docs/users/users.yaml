@@ -24,18 +24,20 @@ paths:
                 status: success
                 payload:
                   - _id: "6764d9d40bf28810c1a3bceb"
-                    first_name: John
-                    last_name: Doe
-                    email: john.doe@example.com
+                    first_name: Juan
+                    last_name: García
+                    email: juan@example.com
+                    password: "$2b$10$7TVNjuQFL9YVIfOngFMesOM646NBPJZZblyhzUpVApWadrCdgr4bC"
                     role: user
                     pets: []
                     __v: 0
                   - _id: "6764d9d40bf28810c1a3bcec"
-                    first_name: Jane
-                    last_name: Smith
-                    email: jane.smith@example.com
+                    first_name: Laura
+                    last_name: Ramos
+                    email: laura@example.com
+                    password: $2b$10$3fw8qNQk5HSEjK6skonfieQxfqCRuzIK66lxAC0x65qU/Q6m7//B6
                     role: admin
-                    pets: ["dog"]
+                    pets: []
                     __v: 1
         '500':
           description: Internal Server Error
@@ -65,9 +67,9 @@ paths:
                 status: success
                 payload:
                   _id: "6764d9d40bf28810c1a3bceb"
-                  first_name: John
-                  last_name: Doe
-                  email: john.doe@example.com
+                  first_name: María
+                  last_name: López
+                  email: maria@example.com
                   password: "$2b$10$cCipA9CBG0idLv9HJEydNeeYcnDoXUBhtgLb2z1KyE3kgKr9mY4Ma"
                   role: user
                   pets: []
@@ -104,9 +106,9 @@ paths:
             schema:
               $ref: '#/components/schemas/UpdateUser'
             example:
-              first_name: John
-              last_name: Doe
-              email: john.doe@example.com
+              first_name: María Laura
+              last_name: López López
+              email: mailactualizado@example.com
       responses:
         '200':
           description: User updated successfully.
@@ -148,13 +150,13 @@ paths:
             schema:
               $ref: '#/components/schemas/RegisterUser'
             example:
-              first_name: John
-              last_name: Doe
-              email: john.doe@example.com
-              password: securePassword123
+              first_name: Mica
+              last_name: Grandoso
+              email: mica@example.com
+              password: Superclave1234
       responses:
         '200':
-          description: User registered successfully
+          description: User registered successfully. The payload is the user ID.
           content:
             application/json:
               schema:
@@ -163,7 +165,7 @@ paths:
                 status: success
                 payload: "6764d9d40bf28810c1a3bceb"
         '400':
-          description: Invalid input
+          description: Invalid input 
           content:
             application/json:
               schema:
@@ -273,9 +275,9 @@ components:
           type: string
           description: Updated role of the user (e.g., "admin", "user").
       example:
-        first_name: John
-        last_name: Doe
-        email: john.doe@example.com
+        first_name: Juan
+        last_name: García
+        email: juan@example.com
         role: admin
     SuccessResponse:
       type: object
