@@ -7,6 +7,16 @@ const getAllPets = async(req,res)=>{
     res.send({status:"success",payload:pets})
 }
 
+const getPet = async (req, res) => {
+    const petId = req.params.pid;
+    const pet = await petsService.getPetById(petId);
+    if (!pet) {
+        return res.status(404).json({ status: "error", error: "Pet not found" });
+    }
+    res.send({status:"success",payload:pet})
+    };
+
+
 const createPet = async(req,res)=> {
     const {name,specie,birthDate} = req.body;
     if(!name||!specie||!birthDate) return res.status(400).send({status:"error",error:"Incomplete values"})
@@ -48,5 +58,6 @@ export default {
     createPet,
     updatePet,
     deletePet,
-    createPetWithImage
+    createPetWithImage,
+    getPet
 }
