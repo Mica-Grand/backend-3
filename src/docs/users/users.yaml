@@ -1,0 +1,307 @@
+paths:
+  /api/users:
+    get:
+      summary: Retrieve all users
+      tags:
+        - Users
+      description: Retrieve a list of all users.
+      responses:
+        '200':
+          description: A list of users.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/User'
+              example:
+                status: success
+                payload:
+                  - _id: "6764d9d40bf28810c1a3bceb"
+                    first_name: John
+                    last_name: Doe
+                    email: john.doe@example.com
+                    role: user
+                    pets: []
+                    __v: 0
+                  - _id: "6764d9d40bf28810c1a3bcec"
+                    first_name: Jane
+                    last_name: Smith
+                    email: jane.smith@example.com
+                    role: admin
+                    pets: ["dog"]
+                    __v: 1
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: error
+                error: Internal Server Error
+  /api/users/{uid}:
+    get:
+      summary: Retrieve a user by ID
+      tags:
+        - Users
+      description: Retrieve a user by their unique ID.
+      parameters:
+        - $ref: '#/components/parameters/uid'
+      responses:
+        '200':
+          description: User details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+              example:
+                status: success
+                payload:
+                  _id: "6764d9d40bf28810c1a3bceb"
+                  first_name: John
+                  last_name: Doe
+                  email: john.doe@example.com
+                  password: "$2b$10$cCipA9CBG0idLv9HJEydNeeYcnDoXUBhtgLb2z1KyE3kgKr9mY4Ma"
+                  role: user
+                  pets: []
+                  __v: 0
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: error
+                error: User not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: error
+                error: Internal Server Error
+    put:
+      summary: Update a user
+      tags:
+        - Users
+      description: Update an existing user's information.
+      parameters:
+        - $ref: '#/components/parameters/uid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+            example:
+              first_name: John
+              last_name: Doe
+              email: john.doe@example.com
+      responses:
+        '200':
+          description: User updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                status: success
+                message: User updated
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: error
+                error: User not found
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: error
+                error: Internal Server Error
+  /api/sessions/register:
+    post:
+      summary: Register a new user
+      tags:
+        - Users
+      description: Register a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+            example:
+              first_name: John
+              last_name: Doe
+              email: john.doe@example.com
+              password: securePassword123
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponseWithPayload'
+              example:
+                status: success
+                payload: "6764d9d40bf28810c1a3bceb"
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                incomplete_values:
+                  summary: Incomplete values
+                  value:
+                    status: error
+                    error: Incomplete values
+                user_exists:
+                  summary: User already exists
+                  value:
+                    status: error
+                    error: User already exists
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                status: error
+                error: Internal Server Error
+components:
+  parameters:
+    uid:
+      name: uid
+      in: path
+      required: true
+      description: Unique identifier of the user.
+      schema:
+        type: string
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the user.
+        first_name:
+          type: string
+          description: First name of the user.
+        last_name:
+          type: string
+          description: Last name of the user.
+        email:
+          type: string
+          description: Email address of the user.
+        password:
+          type: string
+          description: Hashed password of the user.
+        role:
+          type: string
+          description: Role of the user in the system (e.g., admin, user).
+        pets:
+          type: array
+          description: List of pets associated with the user.
+          items:
+            type: string
+        __v:
+          type: integer
+          description: Internal versioning property used by Mongoose.
+      required:
+        - _id
+        - first_name
+        - last_name
+        - email
+        - password
+        - role
+        - pets
+        - __v
+    RegisterUser:
+      type: object
+      properties:
+        first_name:
+          type: string
+          description: First name of the user.
+        last_name:
+          type: string
+          description: Last name of the user.
+        email:
+          type: string
+          description: Email address of the user.
+        password:
+          type: string
+          description: Password for the user.
+      required:
+        - first_name
+        - last_name
+        - email
+        - password
+    UpdateUser:
+      type: object
+      description: Schema for updating user details.
+      properties:
+        first_name:
+          type: string
+          description: Updated first name of the user.
+        last_name:
+          type: string
+          description: Updated last name of the user.
+        email:
+          type: string
+          description: Updated email address of the user.
+        role:
+          type: string
+          description: Updated role of the user (e.g., "admin", "user").
+      example:
+        first_name: John
+        last_name: Doe
+        email: john.doe@example.com
+        role: admin
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+    SuccessResponseWithPayload:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
+    UserResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        payload:
+          $ref: '#/components/schemas/User'

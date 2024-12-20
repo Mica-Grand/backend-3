@@ -1,6 +1,5 @@
 import swaggerJsdoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import __dirname from '../utils/index.js';
 import 'dotenv/config'; 
 
 const PORT = process.env.PORT||8080;
@@ -21,10 +20,10 @@ const swaggerOptions = {
     ],
   },
   apis: [
-    `${__dirname}/docs/**/*.yaml`
+    './src/docs/**/*.yaml'
   ],
 };
 
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
+const specs = swaggerJsdoc(swaggerOptions);
 
-export { swaggerUi, swaggerDocs };
+export { swaggerUi, specs };

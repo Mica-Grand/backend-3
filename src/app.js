@@ -8,7 +8,7 @@ import petsRouter from './routes/pets.router.js';
 import adoptionsRouter from './routes/adoptions.router.js';
 import sessionsRouter from './routes/sessions.router.js';
 import mocksRouter from './routes/mocks.router.js';
-import { swaggerUi, swaggerDocs} from './config/swagger.js';
+import { swaggerUi, specs} from './config/swagger.js';
 
 
 connectDB();
@@ -25,7 +25,7 @@ app.use('/api/pets',petsRouter);
 app.use('/api/adoptions',adoptionsRouter);
 app.use('/api/sessions',sessionsRouter);
 app.use('/api/mocks', mocksRouter);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 
 app.listen(PORT,()=>{
