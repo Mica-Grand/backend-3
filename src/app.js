@@ -33,3 +33,4 @@ app.listen(PORT,()=>{
     console.log(`Docs available at http://localhost:${PORT}/api-docs/`)
 
 })
+export default app 
