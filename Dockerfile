@@ -1,8 +1,8 @@
 # Dockerfile
-FROM node:20
+FROM node:16
 
 # Instalar herramientas necesarias para compilar dependencias nativas
-RUN apt-get update && apt-get install -y make g++ python3
+#RUN apt-get update && apt-get install -y make g++ python3
 
 # Establecer directorio de trabajo
 WORKDIR /app
@@ -12,6 +12,9 @@ COPY package*.json ./
 
 # Instalar dependencias (incluye nativas como bcrypt)
 RUN npm install
+
+# Reconstruir bcrypt para el entorno Docker
+RUN npm rebuild bcrypt --build-from-source
 
 # Copiar el resto de los archivos del proyecto
 COPY . .
@@ -24,6 +27,6 @@ EXPOSE 3000
 CMD ["npm", "start"]
 
 
-#ejempplo para subir imagen: # subir la imagen a dockerhub
+#ejempplo para subir  a dockerhub
 #"docker tag ejemplo-k8s-express:latest omaniasdocker/ejemplo-k8s-express:latest"
 #"docker push omaniasdocker/ejemplo-k8s-express:latest"
